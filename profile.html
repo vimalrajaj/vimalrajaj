@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile - Fashion Hub</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+ 
+    <!-- Top Banner -->
+    <section class="top_banner" data-aos="fade-up">
+        <div class="container">
+            <div class="text_banner" data-aos="fade-up">
+                <h2>Welcome to your profile!</h2>
+            </div>
+            <div id="userInfo" class="user-info" data-aos="fade-up">
+                <!-- Will be populated by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <input type="checkbox" name="" id="checkbox">
+            <div class="hamburger-lines">
+                <span class="line line1"></span>
+                <span class="line line2"></span>
+                <span class="line line3"></span>
+            </div>
+            <div class="logo">
+                <h1>Fashion Hub</h1>
+            </div>
+            <div class="menu-items">
+                <div class="search-box">
+                    <input type="text" placeholder="Search here...">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </div>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="#sellers">Shop</a></li>
+                <li><a href="#news">Blog</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </div>
+            <div class="nav-right">
+                <div class="search-container">
+                    <input type="text" id="searchInput" placeholder="Search products...">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </div>
+                <div class="nav-btns">
+                    <div id="userMenu">
+                        <span id="welcomeUser"></span>
+                        <div class="user-account-menu">
+                            <i class="fa-solid fa-circle-user account-icon"></i>
+                            <div class="account-dropdown">
+                                <a href="profile.html"><i class="fa-solid fa-user"></i> My Profile</a>
+                                <a href="#" onclick="logout()"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cart-icon">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                        <span class="cart-count">0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Profile Section -->
+    <div class="profile-container">
+        <div class="profile-sidebar">
+            <div class="profile-menu">
+                <div class="profile-user-info">
+                    <i class='bx bxs-user-circle'></i>
+                    <h3 id="profileName">Loading...</h3>
+                    <p id="profileEmail">Loading...</p>
+                </div>
+                <ul>
+                    <li class="active" data-tab="dashboard">
+                        <i class='bx bxs-dashboard'></i>
+                        Dashboard
+                    </li>
+                    <li data-tab="orders">
+                        <i class='bx bxs-shopping-bag'></i>
+                        My Orders
+                    </li>
+                    <li data-tab="wishlist">
+                        <i class='bx bxs-heart'></i>
+                        Wishlist
+                    </li>
+                    <li data-tab="payments">
+                        <i class='bx bxs-credit-card'></i>
+                        Payment Methods
+                    </li>
+                    <li data-tab="addresses">
+                        <i class='bx bxs-map'></i>
+                        Addresses
+                    </li>
+                    <li data-tab="settings">
+                        <i class='bx bxs-cog'></i>
+                        Settings
+                    </li>
+                    <li id="logoutBtn">
+                        <i class='bx bxs-log-out'></i>
+                        Logout
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="profile-content">
+            <!-- Dashboard Tab -->
+            <div class="profile-tab active" id="dashboard">
+                <h2>Dashboard</h2>
+                <div class="dashboard-stats">
+                    <div class="stat-card">
+                        <i class='bx bxs-shopping-bag'></i>
+                        <h3>Orders</h3>
+                        <p>0 orders</p>
+                    </div>
+                    <div class="stat-card">
+                        <i class='bx bxs-heart'></i>
+                        <h3>Wishlist</h3>
+                        <p>0 items</p>
+                    </div>
+                    <div class="stat-card">
+                        <i class='bx bxs-credit-card'></i>
+                        <h3>Total Spent</h3>
+                        <p>$0.00</p>
+                    </div>
+                </div>
+                <div class="recent-orders">
+                    <h3>Recent Orders</h3>
+                    <div class="empty-state">
+                        <i class='bx bxs-shopping-bag'></i>
+                        <p>No orders yet</p>
+                        <a href="/" class="btn-primary">Start Shopping</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init();
+
+        // Check if user is logged in
+        function checkAuth() {
+            const user = JSON.parse(localStorage.getItem('user'));
+            if (!user) {
+                window.location.href = 'signin.html';
+                return;
+            }
+
+            // Update profile information
+            document.getElementById('profileName').textContent = user.name;
+            document.getElementById('profileEmail').textContent = user.email;
+            document.getElementById('welcomeUser').textContent = `Welcome, ${user.name}!`;
+
+            // Show user menu and hide auth buttons
+            document.getElementById('userMenu').style.display = 'flex';
+            document.getElementById('authButtons').style.display = 'none';
+        }
+
+        // Logout function
+        function logout() {
+            localStorage.removeItem('user');
+            window.location.href = 'signin.html';
+        }
+
+        // Handle tab switching
+        document.querySelectorAll('.profile-menu li[data-tab]').forEach(tab => {
+            tab.addEventListener('click', function() {
+                // Remove active class from all tabs
+                document.querySelectorAll('.profile-menu li').forEach(t => t.classList.remove('active'));
+                // Add active class to clicked tab
+                this.classList.add('active');
+                
+                // Hide all tab content
+                document.querySelectorAll('.profile-tab').forEach(content => content.classList.remove('active'));
+                // Show selected tab content
+                const tabId = this.getAttribute('data-tab');
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', checkAuth);
+        
+        // Attach logout event handler
+        document.getElementById('logoutBtn').addEventListener('click', logout);
+    </script>
+</body>
+</html>

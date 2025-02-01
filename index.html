@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fashion Hub</title>
+    <link rel="stylesheet" href="./styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="icon" href="imageedit_1_7203927049.png" type="image/png">
+    <style>
+        .home_img img {
+            width: 100%; /* Make the image responsive */
+            height: auto; /* Maintain aspect ratio */
+        }
+        .best-seller {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+        .best-p1 {
+            flex: 1 1 calc(25% - 20px); /* 4 items per row with space */
+            margin: 10px;
+        }
+        .product-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+        /* Toast notifications styles */
+        #toastContainer {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            z-index: 1000;
+        }
+        .toast {
+            background-color: #fff;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: none;
+            flex-direction: row;
+            align-items: center;
+        }
+        .toast.show {
+            display: flex;
+        }
+        .toast.success {
+            background-color: #dff0d8;
+            border-color: #d6e9c6;
+            color: #3c763d;
+        }
+        .toast.error {
+            background-color: #f2dede;
+            border-color: #ebccd1;
+            color: #a94442;
+        }
+        .toast i {
+            margin-right: 10px;
+        }
+        /* Loading state styles */
+        .spinner {
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #3498db;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-container">
+            <input type="checkbox" name="" id="checkbox">
+            <div class="hamburger-lines">
+                <span class="line line1"></span>
+                <span class="line line2"></span>
+                <span class="line line3"></span>
+            </div>
+            <ul class="menu-items">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#sellers">Shop</a></li>
+                <li><a href="#news">Blog</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="logo">
+                <h1 class="logo-text">Fashion Hub</h1>
+            </div>
+            <div class="nav-right">
+                <div class="search-container">
+                    <input type="text" id="searchInput" placeholder="Search products...">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </div>
+                <div class="nav-btns">
+                    <div id="userMenu" style="display: none;">
+                        <span id="welcomeUser"></span>
+                        <div class="user-account-menu">
+                            <i class="fa-solid fa-circle-user account-icon"></i>
+                            <div class="account-dropdown">
+                                <a href="profile.html"><i class="fa-solid fa-user"></i> My Profile</a>
+                                <a href="#" onclick="logout()"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="authButtons">
+                        <a href="signin.html" class="nav-btn">Sign In</a>
+                        <a href="signup.html" class="nav-btn">Sign Up</a>
+                    </div>
+                    <div class="cart-icon">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                        <span class="cart-count">0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section id="home">
+        <div class="home_page">
+            <div class="home_img">
+                <img src='pexels-ryan-holloway-71499-242829.jpg' alt='Modern Home Image' class='home-image'>
+            </div>
+            <div class="home_txt">
+                <p class="collectio">SUMMER COLLECTION</p>
+                <h2>FALL - WINTER<br>Collection 2023</h2>
+                <div class="home_label">
+                    <p>A specialist label creating luxury essentials. Ethically crafted<br>with an unwavering commitment to exceptional quality.</p>
+                </div>
+                <button><a href="#sellers">SHOP NOW</a><i class='bx bx-right-arrow-alt'></i></button>
+            </div>
+        </div>
+    </section>
+
+    <section id="collection">
+        <div class="collections container">
+            <div class="content" data-aos="fade-up">
+                <img src="https://i.postimg.cc/Xqmwr12c/clothing.webp" alt="img" />
+                <div class="img-content">
+                    <p>Clothing Collections</p>
+                    <button><a href="#sellers">SHOP NOW</a></button>
+                </div>
+            </div>
+            <div class="content2" data-aos="fade-up" data-aos-delay="200">
+                <img src="https://i.postimg.cc/8CmBZH5N/shoes.webp" alt="img" />
+                <div class="img-content2">
+                    <p>Shoes Spring</p>
+                    <button><a href="#sellers">SHOP NOW</a></button>
+                </div>
+            </div>
+            <div class="content3" data-aos="fade-up" data-aos-delay="400">
+                <img src="https://i.postimg.cc/MHv7KJYp/access.webp" alt="img" />
+                <div class="img-content3">
+                    <p>Accessories</p>
+                    <button><a href="#sellers">SHOP NOW</a></button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="sellers">
+        <div class="seller container">
+            <h2 data-aos="fade-up">Top Sales</h2>
+            <div class="best-seller">
+                <div class="best-p1" data-aos="fade-up">
+                    <img src="https://i.postimg.cc/8CmBZH5N/shoes.webp" alt="img">
+                    <div class="best-p1-txt">
+                        <div class="name-of-p">
+                            <p>EcoFlex Smart Sneakers</p>
+                        </div>
+                        <div class="rating">
+                            <i class='bx bxs-star'></i>
+                            <i class='bx bxs-star'></i>
+                            <i class='bx bxs-star'></i>
+                            <i class='bx bxs-star'></i>
+                            <i class='bx bxs-star'></i>
+                        </div>
+                        <div class="price">
+                            <span class="new-price">&dollar;129.99</span>
+                            <span class="old-price">&dollar;159.99</span>
+                            <div class="colors">
+                                <i class='bx bxs-circle eco-green'></i>
+                                <i class='bx bxs-circle ocean-blue'></i>
+                                <i class='bx bxs-circle recycled-grey'></i>
+                            </div>
+                        </div>
+                        <div class="buy-now">
+                            <button><a href="https://codepen.io/sanketbodke/full/mdprZOq">Buy Now</a></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="best-p1" data-aos="fade-up" data-aos-delay="100">
+                    <img src="https://i.postimg.cc/76X9ZV8m/Screenshot_from_2022-06-03_18-45-12.png" alt="img">
+                    <div class="best-p1-txt">
+                        <div class="name-of-p">
+                            <p>PS England Jacket</p>
+                        </div>
+                        <div class="rating">
+                            <i class='bx bxs-star'></i>
+                            <i class='bx bxs-star'></i>
+                            <i class='bx bx-star'></i>
+                            <i class='bx bx-star'></i>
+                            <i class='bx bx-star'></i>
+                        </div>
+                        <div class="price">
+                            &dollar;17.24
+                            <div class="colors">
+                                <i class='bx bxs-circle green'></i>
+                                <i class='bx bxs-circle grey'></i>
+                                <i class='bx bxs-circle brown'></i>
+                            </div>
+                        </div>
+                        <div class="buy-now">
+                            <button><a href="https://codepen.io/sanketbodke/full/mdprZOq">Buy Now</a></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="best-p1" data-aos="fade-up" data-aos-delay="200">
+                    <img src="https://i.postimg.cc/j2FhzSjf/bs2.png" alt="img">
+                    <div class="best-p1-txt">
+                        <div class="name-of-p">
+                            <p>PS England Shirt</p>
+                        </div>
+                        <div class="rating">
+                            <i class='bx bxs-star'></i>
+                            <i class='bx bxs-star'></i>
+                            <i class='bx bxs-star'></i>
+                            <i class='bx bxs-star'></i>
+                            <i class='bx bx-star'></i>
+                        </div>
+                        <div class="price">
+                            &dollar;27.24
+                            <div class="colors">
+                                <i class='bx bxs-circle brown'></i>
+                                <i class='bx bxs-circle green'></i>
+                                <i class='bx bxs-circle blue'></i>
+                            </div>
+                        </div>
+                        <div class="buy-now">
+                            <button><a href="https://codepen.io/sanketbodke/full/mdprZOq">Buy Now</a></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="best-p1" data-aos="fade-up" data-aos-delay="300">
+                    <img src="https://i.postimg.cc/QtjSDzPF/bs3.png" alt="img">
+                    <div class="best-p1-txt">
+                        <div class="name-of-p">
+                            <p>PS England Shoes</p>
+                        </div>
+                        <div class="rating">
+                            <i class='bx bxs-star'></i>
+                            <i class='bx bxs-star'></i>
+                            <i class='bx bxs-star'></i>
+                            <i class='bx bxs-star'></i>
+                            <i class='bx bxs-star'></i>
+                        </div>
+                        <div class="price">
+                            &dollar;43.67
+                            <div class="colors">
+                                <i class='bx bxs-circle red'></i>
+                                <i class='bx bxs-circle grey'></i>
+                                <i class='bx bxs-circle blue'></i>
+                            </div>
+                        </div>
+                        <div class="buy-now">
+                            <button><a href="https://codepen.io/sanketbodke/full/mdprZOq">Buy Now</a></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="seller container">
+            <h2 data-aos="fade-up">New Arrivals</h2>
+            <div class="best-seller">
+                <div class="best-p1" data-aos="fade-up">
+                    <img src="https://i.postimg.cc/fbnB2yfj/na1.png" alt="img">
+                    <div class="best-p1-txt">
+                        <div class="name-of-p">
+                            <p>PS England T-Shirt</p>
+                        </div>
+                        <div class="rating">
+                            <i class='bx bxs-star'></i>
+                            <i class='bx bxs-star'></i>
+                            <i class='bx bxs-star'></i>
+                            <i class='bx bxs-star'></i>
+                            <i class='bx bxs-star'></i>
+                        </div>
+                        <div class="price">
+                            &dollar;10.23
+                            <div class="colors">
+                                <i class='bx bxs-circle blank'></i>
+                                <i class='bx bxs-circle blue'></i>
+                                <i class='bx bxs-circle brown'></i>
+                            </div>
+                        </div>
+                        <div class="buy-now">
+                            <button><a href="https://codepen.io/sanketbodke/full/mdprZOq">Buy Now</a></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="best-p1" data-aos="fade-up" data-aos-delay="100">
+                    <img src="https://i.postimg.cc/zD02zJq8/na2.png" alt="img">
+                    <div class="best-p1-txt">
+                        <div class="name-of-p">
+                            <p>PS England Bag</p>
+                        </div>
+                        <div class="rating">
+                            <i class='bx bxs-star'></i>
+                            <i class='bx bx-star'></i>
+                            <i class='bx bx-star'></i>
+                            <i class='bx bx-star'></i>
+                            <i class='bx bx-star'></i>
+                        </div>
+                        <div class="price">
+                            &dollar;09.28
+                            <div class="colors">
+                                <i class='bx bxs-circle brown'></i>
+                                <i class='bx bxs-circle red'></i>
+                                <i class='bx bxs-circle green'></i>
+                            </div>
+                        </div>
+                        <div class="buy-now">
+                            <button><a href="https://codepen.io/sanketbodke/full/mdprZOq">Buy Now</a></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="best-p1" data-aos="fade-up" data-aos-delay="200">
+                    <img src="https://i.postimg.cc/Dfj5VBcz/sunglasses1.jpg" alt="img">
+                    <div class="best-p1-txt">
+                        <div class="name-of-p">
+                            <p>PS England Sunglass</p>
+                        </div>
+                        <div class="rating">
+                            <i class='bx bxs-star'></i>
+                            <i class='bx bxs-star'></i>
+                            <i class='bx bxs-star'></i>
+                            <i class='bx bxs-star'></i>
+                            <i class='bx bxs-star'></i>
+                        </div>
+                        <div class="price">
+                            &dollar;06.24
+                            <div class="colors">
+                                <i class='bx bxs-circle grey'></i>
+                                <i class='bx bxs-circle blank'></i>
+                                <i class='bx bxs-circle blank'></i>
+                            </div>
+                        </div>
+                        <div class="buy-now">
+                            <button><a href="https://codepen.io/sanketbodke/full/mdprZOq">Buy Now</a></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="best-p1" data-aos="fade-up" data-aos-delay="300">
+                    <img src="https://i.postimg.cc/FszW12Kc/na4.png" alt="img">
+                    <div class="best-p1-txt">
+                        <div class="name-of-p">
+                            <p>PS England Shoes</p>
+                        </div>
+                        <div class="rating">
+                            <i class='bx bxs-star'></i>
+                            <i class='bx bxs-star'></i>
+                            <i class='bx bxs-star'></i>
+                            <i class='bx bxs-star'></i>
+                            <i class='bx bxs-star'></i>
+                        </div>
+                        <div class="price">
+                            &dollar;43.67
+                            <div class="colors">
+                                <i class='bx bxs-circle grey'></i>
+                                <i class='bx bxs-circle red'></i>
+                                <i class='bx bxs-circle blue'></i>
+                            </div>
+                        </div>
+                        <div class="buy-now">
+                            <button><a href="https://codepen.io/sanketbodke/full/mdprZOq">Buy Now</a></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="seller container">
+            <h2 data-aos="fade-up">Hot Sales</h2>
+            <div class="best-seller">
+                <div class="best-p1" data-aos="fade-up">
+                    <img src="https://i.postimg.cc/jS7pSQLf/na4.png" alt="img">
+                    <div class="best-p1-txt">
+                        <div class="name-of-p">
+                            <p>PS England Shoes</p>
+                        </div>
+                        <div class="rating">
+                            <i class='bx bxs-star'></i>
+                            <i class='bx bxs-star'></i>
+                            <i class='bx bxs-star'></i>
+                            <i class='bx bxs-star'></i>
+                            <i class='bx bxs-star'></i>
+                        </div>
+                        <div class="price">
+                            &dollar;37.24
+                            <div class="colors">
+                                <i class='bx bxs-circle grey'></i>
+                                <i class='bx bxs-circle black'></i>
+                                <i class='bx bxs-circle blue'></i>
+                            </div>
+                        </div>
+                        <div class="buy-now">
+                            <button><a href="https://codepen.io/sanketbodke/full/mdprZOq">Buy Now</a></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="best-p1" data-aos="fade-up" data-aos-delay="100">
+                    <img src="https://i.postimg.cc/fbnB2yfj/na1.png" alt="img">
+                    <div class="best-p1-txt">
+                        <div class="name-of-p">
+                            <p>PS England T-Shirt</p>
+                        </div>
+                        <div class="rating">
+                            <i class='bx bxs-star'></i>
+                            <i class='bx bxs-star'></i>
+                            <i class='bx bxs-star'></i>
+                            <i class='bx bxs-star'></i>
+                            <i class='bx bxs-star'></i>
+                        </div>
+                        <div class="price">
+                            &dollar;10.23
+                            <div class="colors">
+                                <i class='bx bxs-circle blank'></i>
+                                <i class='bx bxs-circle blue'></i>
+                                <i class='bx bxs-circle brown'></i>
+                            </div>
+                        </div>
+                        <div class="buy-now">
+                            <button><a href="https://codepen.io/sanketbodke/full/mdprZOq">Buy Now</a></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="best-p1" data-aos="fade-up" data-aos-delay="200">
+                    <img src="https://i.postimg.cc/RhVP7YQk/hs1.png" alt="img">
+                    <div class="best-p1-txt">
+                        <div class="name-of-p">
+                            <p>PS England T-Shirt</p>
+                        </div>
+                        <div class="rating">
+                            <i class='bx bxs-star'></i>
+                            <i class='bx bxs-star'></i>
+                            <i class='bx bxs-star'></i>
+                            <i class='bx bxs-star'></i>
+                            <i class='bx bxs-star'></i>
+                        </div>
+                        <div class="price">
+                            &dollar;15.24
+                            <div class="colors">
+                                <i class='bx bxs-circle blank'></i>
+                                <i class='bx bxs-circle red'></i>
+                                <i class='bx bxs-circle blue'></i>
+                            </div>
+                        </div>
+                        <div class="buy-now">
+                            <button><a href="https://codepen.io/sanketbodke/full/mdprZOq">Buy Now</a></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="best-p1" data-aos="fade-up" data-aos-delay="300">
+                    <img src="https://i.postimg.cc/zD02zJq8/na2.png" alt="img">
+                    <div class="best-p1-txt">
+                        <div class="name-of-p">
+                            <p>PS England Bag</p>
+                        </div>
+                        <div class="rating">
+                            <i class='bx bxs-star'></i>
+                            <i class='bx bx-star'></i>
+                            <i class='bx bx-star'></i>
+                            <i class='bx bx-star'></i>
+                            <i class='bx bx-star'></i>
+                        </div>
+                        <div class="price">
+                            &dollar;09.28
+                            <div class="colors">
+                                <i class='bx bxs-circle blank'></i>
+                                <i class='bx bxs-circle grey'></i>
+                                <i class='bx bxs-circle brown'></i>
+                            </div>
+                        </div>
+                        <div class="buy-now">
+                            <button><a href="https://codepen.io/sanketbodke/full/mdprZOq">Buy Now</a></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="news">
+        <div class="news-heading" data-aos="fade-up">
+            <p>LATEST TRENDS</p>
+            <h2>Fashion Innovation 2025</h2>
+        </div>
+        <div class="l-news container">
+            <div class="l-news1" data-aos="fade-right">
+                <div class="news1-img">
+                    <img src="https://i.postimg.cc/2y6wbZCm/news1.jpg" alt="img">
+                </div>
+                <div class="news1-conte">
+                    <div class="date-news1">
+                        <p><i class='bx bxs-calendar'></i> 12 February 2022</p>
+                        <h4>What Curling Irons Are The Best Ones</h4>
+                        <a href="https://www.vogue.com/article/best-curling-irons" target="_blank">read more</a>
+                    </div>
+                </div>
+            </div>
+            <div class="l-news2" data-aos="fade-up">
+                <div class="news2-img">
+                    <img src="https://i.postimg.cc/9MXPK7RT/news2.jpg" alt="img">
+                </div>
+                <div class="news2-conte">
+                    <div class="date-news2">
+                        <p><i class='bx bxs-calendar'></i> 17 February 2022</p>
+                        <h4>The Health Benefits Of Sunglasses</h4>
+                        <a href="https://www.rivieraopticare.com/blog/314864-the-health-benefits-of-wearing-sunglasses_2/" target="_blank">read more</a>
+                    </div>
+                </div>
+            </div>
+            <div class="l-news3" data-aos="fade-left">
+                <div class="news3-img">
+                    <img src="https://i.postimg.cc/x1KKdRLM/news3.jpg" alt="img">
+                </div>
+                <div class="news3-conte">
+                    <div class="date-news3">
+                        <p><i class='bx bxs-calendar'></i> 26 February 2022</p>
+                        <h4>Eternity Bands Do Last Forever</h4>
+                        <a href="https://www.briangavindiamonds.com/news/eternity-bands-symbolize-love-that-lasts-forever/" target="_blank">read more</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="contact container">
+            <div class="map" data-aos="fade-right">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d474.0656661504512!2d79.81932939079785!3d12.407308335889152!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a53178e0f1a6799%3A0x63b8cf534cc8a563!2sRoyal%20life%20style%20men&#39;s%20wear!5e0!3m2!1sen!2sin!4v1738398475332!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+            <form action="https://formspree.io/f/xzbowpjq" method="POST" data-aos="fade-left">
+                <div class="form">
+                    <div class="contact-info">
+                        <h1>Contact Us</h1>
+                        <p class="text">Feel free to reach out to us:</p>
+                        
+                        <div class="contact-info-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div class="contact-info-content">
+                                <div class="contact-info-label">Our Location</div>
+                                <div class="contact-info-value">Vandhavasi Road, southupakkam,<br>above Aboorva sweets</div>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-info-item">
+                            <i class="fas fa-phone"></i>
+                            <div class="contact-info-content">
+                                <div class="contact-info-label">Phone Number</div>
+                                <div class="contact-info-value">+91 8807511029</div>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-info-item">
+                            <i class="fas fa-envelope"></i>
+                            <div class="contact-info-content">
+                                <div class="contact-info-label">Email Address</div>
+                                <div class="contact-info-value">vimalraja1029@gmail.com</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-details">
+                        <input type="text" name="name" id="name" placeholder="Name" required>
+                        <input type="email" name="email" id="email" placeholder="Email" required>
+                        <textarea name="message" id="message" cols="52" rows="7" placeholder="Message" required></textarea>
+                        <button>SEND MESSAGE</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-container container">
+            <div class="content_1">
+                <div class="footer-logo">
+                    <h1 class="logo-text footer-logo-text">Fashion Hub</h1>
+                    <p>Your Ultimate Fashion Destination</p>
+                </div>
+                <p>The customer is at the heart of our<br>unique business model, which includes<br>design.</p>
+                <div class="payment-methods">
+                    <img src="https://i.postimg.cc/Nj9dgJ98/cards.png" alt="payment methods">
+                </div>
+            </div>
+            <div class="content_2">
+                <h4>Contact</h4>
+                
+                <div class="contact-item">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <div class="contact-item-content">
+                        <div class="contact-label">Address</div>
+                        <div class="contact-value">Vandhavasi Road, southupakkam,<br>above Aboorva sweets</div>
+                    </div>
+                </div>
+                
+                <div class="contact-item">
+                    <i class="fa-solid fa-phone"></i>
+                    <div class="contact-item-content">
+                        <div class="contact-label">Phone</div>
+                        <div class="contact-value">+91 8807511029</div>
+                    </div>
+                </div>
+                
+                <div class="contact-item">
+                    <i class="fa-solid fa-envelope"></i>
+                    <div class="contact-item-content">
+                        <div class="contact-label">Email</div>
+                        <div class="contact-value">vimalraja1029@gmail.com</div>
+                    </div>
+                </div>
+            </div>
+            <div class="content_3">
+                <h4>Quick Links</h4>
+                <a href="./index.html">Home</a>
+                <a href="#featured">Featured</a>
+                <a href="#new">New Arrivals</a>
+                <a href="#sellers">Best Sellers</a>
+                <a href="./signin.html">Sign In</a>
+                <a href="./signup.html">Sign Up</a>
+            </div>
+            <div class="content_4">
+                <h4>Categories</h4>
+                <a href="#trending">Trending Fashion</a>
+                <a href="#accessories">Accessories</a>
+                <a href="#watches">Watches</a>
+                <a href="#new">New Arrivals</a>
+                <a href="#featured">Featured Products</a>
+            </div>
+            <div class="content_5">
+                <h4>Follow Us</h4>
+                <div class="social-links">
+                    <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook"></i> Facebook</a>
+                    <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i> Instagram</a>
+                    <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i> Twitter</a>
+                    <a href="https://pinterest.com" target="_blank"><i class="fab fa-pinterest"></i> Pinterest</a>
+                </div>
+            </div>
+        </div>
+        <div class="f-design">
+            <div class="f-design-txt container">
+                <p>Design and Code by vimalraja</p>
+            </div>
+        </div>
+    </footer>
+    <!-- Toast Notifications Container -->
+    <div id="toastContainer"></div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
