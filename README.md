@@ -5,12 +5,10 @@
 <img align="right" width="330" height="230" src="https://i.pinimg.com/originals/47/f0/34/47f0342cec72b800463bf003eac1257e.gif">
 
 - 🎓 Student at **Chennai Institute of Technology and Applied Research (CITAR, Chennai)**
-- 💼 Former 1-month Intern at [Cognizant Technologies](https://www.cognizant.com/)
 - 🚀 Passionate about solving real-world problems using AI, web development, and sustainable technology
-- 🏆 Hackathon lover: active at Adobe India, Google Cloud Hack2Skill, Tata InnoVent, and more
+- 🏆 Hackathon lover: active at Adobe India, Google Cloud Hack2Skill, Tata InnoVent, SIH, Nasscom  and more
 - 🌱 Son of a farmer, building AI-based solutions for rural communities
 - 🩺 Built projects in healthcare, agriculture, mobility & sustainability domains
-- 📈 Currently: DSA Level-1 completed, prepping for SDE roles
 
 ---
 
