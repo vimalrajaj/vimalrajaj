@@ -43,7 +43,7 @@
 
 ### Coding Stats
 
-[![LeetCode Stats](https://leetcard.jacoblin.cool/vimalraja?theme=dark&font=Arya&ext=contest)](https://leetcode.com/vimalraja)
+[![LeetCode Stats](https://leetcard.jacoblin.cool/vimalraja?theme=dark&font=Arya&ext=contest)](https://leetcode.com/vimalraja_)
 
 ---
 
